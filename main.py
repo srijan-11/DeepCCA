@@ -20,7 +20,7 @@ torch.set_default_tensor_type(torch.DoubleTensor)
 
 class DeepCCA():
     def __init__(self, layer_sizes1, layer_sizes2, input_size1, input_size2, \
-         use_all_singular_values,  linear_cca, outdim_size,\
+         use_all_singular_values,  linearcca, outdim_size,\
               epoch_num, batch_size, learning_rate, reg_par, device=torch.device('cpu')):
         model = Model(layer_sizes1, layer_sizes2, input_size1,
                     input_size2, outdim_size, use_all_singular_values, device=device).double()
@@ -32,9 +32,10 @@ class DeepCCA():
         self.optimizer = torch.optim.RMSprop(  # optimizer 
             self.model.parameters(), lr=learning_rate, weight_decay=reg_par)
         self.device = device # GPU / CPU
-
-        self.linear_cca = linear_cca # output of model is inputed on linear cca model.
-
+        if linearcca == True:
+            self.linear_cca = linear_cca() # output of model is inputed on linear cca model.
+        else:
+            self.linear_cca = None
         self.outdim_size = outdim_size # output dimension
 
         formatter = logging.Formatter(
