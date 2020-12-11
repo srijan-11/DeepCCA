@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from linear_cca import linear_cca
+from . linear_cca import linear_cca
 from torch.utils.data import BatchSampler, SequentialSampler, RandomSampler
-from DeepCCAModels import Model
+from . DeepCCAModels import Model
 from utils import load_data, svm_classify
 import time
 import logging
