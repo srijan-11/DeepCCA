@@ -29,9 +29,9 @@ class MlpNet(nn.Module):
         return x
 
 
-class DeepCCA(nn.Module):
+class Model(nn.Module):
     def __init__(self, layer_sizes1, layer_sizes2, input_size1, input_size2, outdim_size, use_all_singular_values, device=torch.device('cpu')):
-        super(DeepCCA, self).__init__()
+        super(Model, self).__init__()
         self.model1 = MlpNet(layer_sizes1, input_size1).double()  # passing input X to neural network 1 
         self.model2 = MlpNet(layer_sizes2, input_size2).double()  # passing input Y to neural network 2
 
