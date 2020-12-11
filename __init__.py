@@ -1,1 +1,1 @@
-from main import DeepCCA
+from .main import DeepCCA
