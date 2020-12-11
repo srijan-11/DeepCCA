@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
-from objectives import cca_loss
+from . objectives import cca_loss
 
 
 class MlpNet(nn.Module):
