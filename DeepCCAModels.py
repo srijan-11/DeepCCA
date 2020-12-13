@@ -37,7 +37,7 @@ class Model(nn.Module):
     input_size2 : int, 
     outdim_size : int, 
     use_all_singular_values : bool = False , 
-    device : torch.device = torch.device('cpu')):
+    device  = torch.device('cpu')):
         """model initialization 
 
         Parameters
