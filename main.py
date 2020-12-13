@@ -19,12 +19,8 @@ torch.set_default_tensor_type(torch.DoubleTensor)
 
 
 class DeepCCA():
-    def __init__(self, layer_sizes1, layer_sizes2, input_size1, input_size2, \
-         use_all_singular_values,  linearcca, outdim_size,\
-              epoch_num, batch_size, learning_rate, reg_par, device=torch.device('cpu')):
-        model = Model(layer_sizes1, layer_sizes2, input_size1,
-                    input_size2, outdim_size, use_all_singular_values, device=device).double()
-        self.model = nn.DataParallel(model)  # parallizing the data
+    def __init__(self,model ,  linearcca, outdim_size,epoch_num, batch_size, learning_rate, reg_par, device=torch.device('cpu')):
+        self.model = nn.DataParallel(model)  # parallizing the model
         self.model.to(device) # select GPU or CPU
         self.epoch_num = epoch_num # Total no. of iteration
         self.batch_size = batch_size # size of batch whose loss is calculated at once
