@@ -42,7 +42,7 @@ class DeepCCA():
 
 
 
-
+        print("main" , device)
         
         self.model = nn.DataParallel(model)  # parallizing the model
         self.model.to(device) # select GPU or CPU

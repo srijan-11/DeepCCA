@@ -52,6 +52,7 @@ class Model(nn.Module):
              ones. Defaults to False.
             device (torch.device, optional): device type GPU/CPU. Defaults to torch.device('cpu').
         """
+        print(3, device)
         super(Model, self).__init__()
         self.model1 = MlpNet(layer_sizes1, input_size1).double()  # passing input X to neural network 1 
         self.model2 = MlpNet(layer_sizes2, input_size2).double()  # passing input Y to neural network 2
