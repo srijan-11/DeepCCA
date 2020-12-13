@@ -8,10 +8,10 @@ DCCA is a non-linear version of CCA which uses neural networks as the mapping fu
 Galen Andrew, Raman Arora, Jeff Bilmes, Karen Livescu, "[Deep Canonical Correlation Analysis.](http://www.jmlr.org/proceedings/papers/v28/andrew13.pdf)", ICML, 2013.
 
 **Requirements**
-
+```
 PyTorch
-
 Numpy
+```
 
 **Documentation of API**
 
