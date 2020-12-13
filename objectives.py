@@ -6,7 +6,7 @@ class cca_loss():
         self.outdim_size = outdim_size # dimension of transformed matrix
         self.use_all_singular_values = use_all_singular_values
         self.device = device # cpu/GPU
-        print("loss", device)
+
 
 
     def loss(self, H1, H2):

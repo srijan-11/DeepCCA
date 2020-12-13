@@ -1,5 +1,4 @@
 
-
 **Documentation of API**
 
 **DeepCCAModels**
@@ -54,12 +53,12 @@ train model with the given dataset
 
 
 
-*   **x1** (_np.array_) – training data of view 1
-*   **x2** (_np.array_) – training data of view 2
-*   **vx1** (_np.array, optional_) – validation data of view 1. Defaults to None.
-*   **vx2** (_np.array, optional_) – validation data of view 2. Defaults to None.
-*   **tx1** (_np.array, optional_) – testing data of view 1. Defaults to None.
-*   **tx2** (_np.array, optional_) – testing data of view 2. Defaults to None.
+*   **x1** (_torch.Tensor_) – training data of view 1
+*   **x2** (_torch.Tensor_) – training data of view 2
+*   **vx1** (_torch.Tensor, optional_) – validation data of view 1. Defaults to None.
+*   **vx2** (_torch.Tensor, optional_) – validation data of view 2. Defaults to None.
+*   **tx1** (_torch.Tensor, optional_) – testing data of view 1. Defaults to None.
+*   **tx2** (_torch.Tensor, optional_) – testing data of view 2. Defaults to None.
 *   **checkpoint** (_str, optional_) – model weights saving location. Defaults to ‘checkpoint.model’.
 
 **transform**(_x1: numpy.array_, _x2: numpy.array_, _use_linear_cca: bool = False_) → list
@@ -70,8 +69,8 @@ get output of the model
 
 
 
-*   **x1** (_np.array_) – view 1 data
-*   **x2** (_np.array_) – view 2 data
+*   **x1** (_torch.Tensor_) – view 1 data
+*   **x2** (_torch.Tensor_) – view 2 data
 *   **use_linear_cca** (_bool, optional_) – apply linear cca on model output. Defaults to False.
 
 Returns

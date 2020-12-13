@@ -42,7 +42,6 @@ class DeepCCA():
 
 
 
-        print("main" , device)
         
         self.model = nn.DataParallel(model)  # parallizing the model
         self.model.to(device) # select GPU or CPU
@@ -71,23 +70,23 @@ class DeepCCA():
         self.logger.info(self.optimizer)
 
     def fit(self, 
-    x1 : np.array, 
-    x2 : np.array, 
-    vx1 : np.array = None, 
-    vx2 : np.array = None, 
-    tx1 : np.array = None, 
-    tx2 : np.array = None, 
+    x1 : torch.Tensor, 
+    x2 : torch.Tensor, 
+    vx1 : torch.Tensor = None, 
+    vx2 : torch.Tensor = None, 
+    tx1 : torch.Tensor = None, 
+    tx2 : torch.Tensor = None, 
     checkpoint : str ='checkpoint.model'):
         """train model with the given dataset
 
         Parameters
         ----------
-            x1 (np.array): training data of view 1
-            x2 (np.array): training data of view 2
-            vx1 (np.array, optional): validation data of view 1. Defaults to None.
-            vx2 (np.array, optional): validation data of view 2. Defaults to None.
-            tx1 (np.array, optional): testing data of view 1. Defaults to None.
-            tx2 (np.array, optional): testing data of view 2. Defaults to None.
+            x1 (torch.Tensor): training data of view 1
+            x2 (torch.Tensor): training data of view 2
+            vx1 (torch.Tensor, optional): validation data of view 1. Defaults to None.
+            vx2 (torch.Tensor, optional): validation data of view 2. Defaults to None.
+            tx1 (torch.Tensor, optional): testing data of view 1. Defaults to None.
+            tx2 (torch.Tensor, optional): testing data of view 2. Defaults to None.
             checkpoint (str, optional): model weights saving location. Defaults to 'checkpoint.model'.
         """
         x1.to(self.device) # input view 1
@@ -155,14 +154,14 @@ class DeepCCA():
             self.logger.info('loss on test data: {:.4f}'.format(loss))
 
     def transform(self, 
-    x1 : np.array, 
-    x2 : np.array, 
+    x1 : torch.Tensor, 
+    x2 : torch.Tensor, 
     use_linear_cca : bool =False) -> list:
         """ get output of the model
 
         Args:
-            x1 (np.array): view 1 data
-            x2 (np.array): view 2 data
+            x1 (torch.Tensor): view 1 data
+            x2 (torch.Tensor): view 2 data
             use_linear_cca (bool, optional): apply linear cca on model output. Defaults to False.
 
         Returns:
