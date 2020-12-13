@@ -4,7 +4,6 @@ import numpy as np
 from . linear_cca import linear_cca
 from torch.utils.data import BatchSampler, SequentialSampler, RandomSampler
 from . DeepCCAModels import Model
-from . utils import load_data, svm_classify
 import time
 import logging
 try:
@@ -19,7 +18,32 @@ torch.set_default_tensor_type(torch.DoubleTensor)
 
 
 class DeepCCA():
-    def __init__(self,model ,  linearcca, outdim_size,epoch_num, batch_size, learning_rate, reg_par, device=torch.device('cpu')):
+    def __init__(self,
+    model:Model ,  
+    outdim_size : int ,
+    epoch_num : int, 
+    batch_size : int, 
+    learning_rate : float, 
+    reg_par : float, 
+    linearcca : bool = False, 
+    device=torch.device('cpu')):
+        """[summary]
+
+        Args:
+            model (Model): Pytorch Model
+            outdim_size (int): size of output dimensions
+            epoch_num (int): Number of iterations on data
+            batch_size (int): size of batch while training 
+            learning_rate (float): Learning rate of the model
+            reg_par (float): regularization parameter
+            linearcca (bool, optional): apply linear cca on model output. Defaults to False.
+            device ([type], optional): [select device type GPU / CPU. Defaults to torch.device('cpu').
+        """
+
+
+
+
+        
         self.model = nn.DataParallel(model)  # parallizing the model
         self.model.to(device) # select GPU or CPU
         self.epoch_num = epoch_num # Total no. of iteration
@@ -46,16 +70,25 @@ class DeepCCA():
         self.logger.info(self.model)
         self.logger.info(self.optimizer)
 
-    def fit(self, x1, x2, vx1=None, vx2=None, tx1=None, tx2=None, checkpoint='checkpoint.model'):
-        """
+    def fit(self, 
+    x1 : np.array, 
+    x2 : np.array, 
+    vx1 : np.array = None, 
+    vx2 : np.array = None, 
+    tx1 : np.array = None, 
+    tx2 : np.array = None, 
+    checkpoint : str ='checkpoint.model'):
+        """train model with the given dataset
 
-        x1, x2 are the vectors needs to be make correlated
-        dim=[batch_size, feats]
-
-        vx1 & vx2 are validation data
-
-        tx1 & tx2 are test data
-
+        Parameters
+        ----------
+            x1 (np.array): training data of view 1
+            x2 (np.array): training data of view 2
+            vx1 (np.array, optional): validation data of view 1. Defaults to None.
+            vx2 (np.array, optional): validation data of view 2. Defaults to None.
+            tx1 (np.array, optional): testing data of view 1. Defaults to None.
+            tx2 (np.array, optional): testing data of view 2. Defaults to None.
+            checkpoint (str, optional): model weights saving location. Defaults to 'checkpoint.model'.
         """
         x1.to(self.device) # input view 1
         x2.to(self.device) # input view 2
@@ -121,16 +154,30 @@ class DeepCCA():
             loss = self.transform(tx1, tx2)
             self.logger.info('loss on test data: {:.4f}'.format(loss))
 
-    def transform(self, x1, x2, use_linear_cca=False): # output for new data
+    def transform(self, 
+    x1 : np.array, 
+    x2 : np.array, 
+    use_linear_cca : bool =False) -> list:
+        """ get output of the model
+
+        Args:
+            x1 (np.array): view 1 data
+            x2 (np.array): view 2 data
+            use_linear_cca (bool, optional): apply linear cca on model output. Defaults to False.
+
+        Returns:
+            [list]: list containing transformed matrix .
+        """
+
         with torch.no_grad():
             losses, outputs = self._get_outputs(x1, x2)
 
             if use_linear_cca:
                 print("Linear CCA started!")
                 outputs = self.linear_cca.test(outputs[0], outputs[1])
-                return np.mean(losses), outputs
+                return outputs
             
-            return np.mean(losses), outputs
+            return outputs
 
     def train_linear_cca(self, x1, x2):
         self.linear_cca.fit(x1, x2, self.outdim_size)

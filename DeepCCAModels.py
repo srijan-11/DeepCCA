@@ -30,7 +30,28 @@ class MlpNet(nn.Module):
 
 
 class Model(nn.Module):
-    def __init__(self, layer_sizes1, layer_sizes2, input_size1, input_size2, outdim_size, use_all_singular_values, device=torch.device('cpu')):
+    def __init__(self, 
+    layer_sizes1 : list, 
+    layer_sizes2 : list, 
+    input_size1 : int, 
+    input_size2 : int, 
+    outdim_size : int, 
+    use_all_singular_values : bool = False , 
+    device : torch.device = torch.device('cpu')):
+        """model initialization 
+
+        Parameters
+        ----------
+            layer_sizes1 (list): list of layer shape of view 1
+            layer_sizes2 (list): list of layer shape of view 1
+            input_size1 (int): input dimension of view 1 
+            input_size2 (int): input dimension of view 2
+            outdim_size (int): output dimension of data 
+            use_all_singular_values (bool, optional): specifies if all the singular values 
+            should get used to calculate the correlation or just the top outdim_size
+             ones. Defaults to False.
+            device (torch.device, optional): device type GPU/CPU. Defaults to torch.device('cpu').
+        """
         super(Model, self).__init__()
         self.model1 = MlpNet(layer_sizes1, input_size1).double()  # passing input X to neural network 1 
         self.model2 = MlpNet(layer_sizes2, input_size2).double()  # passing input Y to neural network 2
