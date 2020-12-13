@@ -11,7 +11,6 @@ try:
 except ImportError:
     import _pickle as thepickle
 
-import gzip
 import numpy as np
 import torch.nn as nn
 torch.set_default_tensor_type(torch.DoubleTensor)
