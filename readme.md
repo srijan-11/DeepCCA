@@ -1,5 +1,4 @@
 
-
 # **DCCA: Deep Canonical Correlation Analysis**
 
 This is an implementation of Deep Canonical Correlation Analysis (DCCA or Deep CCA) in Python with pytorch, which supports multi-GPU training.
@@ -148,8 +147,9 @@ apply_linear_cca = True
 data1 = torch.randn((100,784))
 data2 = torch.randn((100,784))
 
-model = Model(layer_sizes1 , layer_sizes2 , input_shape1 , input_shape2 ,outdim_size, use_all_singular_values )
-deepcca = DeepCCA(model, linear_cca , outdim_size , epoch_num , batch_size , learning_rate , reg_par)
+model = Model(layer_sizes1, layer_sizes2, input_shape1,input_shape2, outdim_size, use_all_singular_values).double()
+
+deepcca = DeepCCA(model,  outdim_size , epoch_num , batch_size , learning_rate , reg_par , linear_cca  )
 
 deepcca.fit(data1 , data2)
 outputs = deepcca.transform(data1,data2, linear_cca)
