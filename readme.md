@@ -155,5 +155,5 @@ deepcca.fit(data1 , data2)
 outputs = deepcca.transform(data1,data2, linear_cca)
 ```
 
-
+https://docs.google.com/document/d/1-mvINq7BZnWjDLN6q0-lY5lEc8pQgHaoi17DyeRvCCk/edit?usp=sharing
 
